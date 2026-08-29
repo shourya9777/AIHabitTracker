@@ -1,68 +1,92 @@
-# AI Habit Tracker — React → EJS conversion
+🚀 AI Habit Tracker
 
-This is the frontend converted from a React SPA (Vite + React Router) to a
-server-rendered **Express + EJS** app. The backend is untouched.
+An AI-powered Habit Tracker application that helps users build better habits, track their progress, and manage their daily routines. The application consists of a separate Frontend and Backend.
 
-## What changed & why
+📁 Project Structure
+AIHabitTracker/
+│
+├── frontend/        # Frontend application
+├── backend/         # Backend server and API
+├── .gitignore
+└── README.md
+🛠️ Prerequisites
 
-EJS is a server-side templating engine, not a frontend framework, so a
-literal drop-in isn't possible — a few things had to change shape to keep
-the same look and behaviour:
+Before running this project, make sure you have the following installed:
 
-| Old (React)                          | New (EJS)                                                   |
-|---------------------------------------|--------------------------------------------------------------|
-| `react-router-dom` client routes      | Real Express routes (`/`, `/login`, `/dashboard`, ...)       |
-| JSX components                        | `.ejs` views + partials (`views/partials/*.ejs`)             |
-| `useState`/`useEffect`/Context        | Plain vanilla JS modules in `public/js/*.js`                 |
-| `AuthContext` / `ProtectedRoute`      | `public/js/auth-guard.js` (checks the JWT client-side, same as before) |
-| `axios` instance                      | `public/js/api.js` (fetch wrapper, same interceptor behaviour) |
-| `recharts` charts (Insights/Stats)    | `Chart.js` (CDN) in `public/js/charts.js`                     |
-| Hand-rolled SVG/CSS charts (heatmap, progress ring, weekly grid) | Reimplemented as HTML strings in `public/js/*.js`, same markup/classes |
-| `react-markdown`                      | `marked` (CDN) in `public/js/markdown.js`                     |
-| `lucide-react` / `react-icons`        | `lucide` static build (CDN) via `data-lucide` attributes      |
-| `canvas-confetti` (already vanilla under the hood) | same library, loaded via CDN               |
-| `date-fns`                            | Reimplemented the handful of used helpers with native `Date` in `public/js/date-helpers.js` (no bundler to tree-shake a big date lib for a few functions) |
-| Tailwind (Vite plugin)                | Same `index.css` → built with the Tailwind CLI                |
+Node.js
+npm
+A MongoDB Atlas account and database
+A Google Gemini API key
+⚙️ Installation & Setup
+1. Clone the Repository
+git clone https://github.com/shourya9777/AIHabitTracker.git
 
-The JWT auth model is unchanged: the token still lives in `localStorage`
-and is sent as a `Bearer` header — that's why pages still need a small
-client-side guard script rather than true server-side sessions.
+Navigate to the project folder:
 
-`@dnd-kit` was a dependency in the original `package.json` but wasn't
-actually used anywhere in the source, so it was dropped.
+cd AIHabitTracker
+2. Configure Environment Variables
 
-## Pages converted (all of them)
+Create a .env file inside the backend folder and add the following variables:
 
-- Landing (incl. the orbiting-habits hero animation)
-- Login / Register
-- Dashboard — habits list, toggle/complete with confetti, create/edit/
-  delete/archive modal, AI weekly report, morning motivation, streak
-  recovery card, weekly grid, 90-day heatmap, AI habit-suggestion wizard
-- Habits — full list, search, category filter, active/archived tabs
-- Weekly — week navigation, summary cards, weekly grid
-- Insights — AI weekly report (cached per week like the original),
-  completions-by-day / week-vs-week / category charts, per-habit
-  performance bars, active streak board
-- Stats — highlight cards (best/longest/needs attention), 7-day and
-  30-day bar charts, category pie chart, top-habits list, per-habit
-  cards, plus the floating AI chat widget
+MONGO_URI=YOUR_MONGO_URI
+JWT_SECRET=YOUR_SECRET_KEY
+JWT_EXPIRES_IN=YOUR_EXPIRATION_TIME
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+GEMINI_MODEL=YOUR_GEMINI_MODEL
+CLIENT_URL=YOUR_FRONTEND_URL
+🔐 Environment Variables Explained
+Variable	Description
+MONGO_URI	Your MongoDB Atlas connection string
+JWT_SECRET	A secret key used for JWT authentication
+JWT_EXPIRES_IN	The expiration time for JWT tokens
+GEMINI_API_KEY	Your Google Gemini API key
+GEMINI_MODEL	The Gemini model used by the application
+CLIENT_URL	The URL where the frontend application is running
 
-## Running it
+⚠️ Important: Never upload your .env file, MongoDB password, API keys, or other secrets to GitHub.
 
-```bash
+▶️ How to Run the Project
+
+The frontend and backend need to be run separately. Open two terminals from the main project folder.
+
+💻 Terminal 1 — Start the Backend
+
+Navigate to the backend folder:
+
+cd backend
+
+Install the dependencies:
+
+npm install
+
+Start the backend server:
+
+npm start
+🌐 Terminal 2 — Start the Frontend
+
+Open a new terminal and navigate to the frontend folder:
+
+cd frontend
+
+Install the dependencies:
+
+npm install
+
+Start the frontend application:
+
+npm start
+🎉 Open the Application
+
+Once both the frontend and backend servers are running, open the URL shown in your frontend terminal in your web browser.
+
+You should now be able to use the AI Habit Tracker! 🚀
+
+📝 Quick Start
+Terminal 1:
+cd backend
+npm install
+npm start
+Terminal 2:
 cd frontend
 npm install
-cp .env.example .env       # point API_URL at your backend
-npm run build:css          # compiles public/css/input.css -> output.css
-npm start                  # or `npm run dev` to also watch CSS
-```
-
-The backend is unchanged — run it exactly as before (see the original
-`backend/` folder and its own README instructions).
-
-## Not yet run/tested
-
-I wrote this without network access (couldn't `npm install`), so it's
-carefully written against the original React logic but not
-execution-tested. Do `npm install && npm run build:css && npm start`
-early and flag anything that misbehaves — happy to fix it.
+npm start
