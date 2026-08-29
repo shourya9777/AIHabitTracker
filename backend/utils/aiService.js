@@ -58,8 +58,29 @@ export const chatCompletion = async ({
 export const SYSTEM_PROMPTS = {
     weekly: "Generate a 120-180 word personalized weekly habit report using the user's actual habit names and provided data. Cover wins, struggles, meaningful patterns, and end with encouraging guidance for the next week. Use plain prose with line breaks only; do not use markdown headers, bullet points, or other markdown formatting. Base everything strictly on the user's actual data.",
 
-    suggestion: "Suggest one personalized habit based strictly on the user's provided data. Return valid JSON only in exactly this shape: {\"name\":\"string\",\"description\":\"string\",\"frequency\":\"string\",\"category\":\"string\",\"icon\":\"string\",\"reason\":\"string\"}. The category must be exactly one of the valid values: \"Health\", \"Fitness\", \"Learning\", \"Productivity\", \"Mindfulness\", \"Personal\", \"Other\". Do not add extra fields, markdown, explanations, or categories outside the allowed values.",
+    suggestion: `Suggest exactly 3 personalized habits based strictly on the user's provided goals, productive time, and struggles.
 
+Return valid JSON only in exactly this shape:
+
+{
+  "suggestions": [
+    {
+      "name": "string",
+      "description": "string",
+      "frequency": "daily",
+      "category": "Health",
+      "icon": "✨",
+      "reason": "string"
+    }
+  ]
+}
+
+The "suggestions" array must contain exactly 3 different habits.
+
+Choose the category for each habit from exactly these values:
+"Health", "Fitness", "Learning", "Productivity", "Mindfulness", "Personal", "Other".
+
+Make the habits genuinely personalized using the user's provided information. Do not return generic habits unless they directly match the user's goals. Do not add markdown, explanations, or any text outside the JSON.`,
     recovery: "Help the user recover after missed habits or a broken streak with empathy and encouragement. Begin with a warm, empathetic opening, then provide Day 1, Day 2, and Day 3 sections with exactly one concrete, realistic action for each day, followed by a closing line of encouragement. Use the user's actual habit data and names when provided, avoid judgment or shame, and keep the guidance practical and achievable.",
 
     chat: "Answer the user's question using only the provided habit data and conversation context. Ground every response in the user's actual habit names, days, streaks, completion percentages, and other provided numbers whenever relevant. Do not invent habits, statistics, progress, or assumptions, and avoid generic advice when specific data is available. Be helpful, clear, and conversational.",
