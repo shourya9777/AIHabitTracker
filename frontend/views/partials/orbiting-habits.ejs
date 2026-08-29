@@ -1,0 +1,54 @@
+<%
+// Replaces components/OrbitingHabits.jsx. Random star positions are
+// computed once per render here in EJS (same "randomize on mount"
+// feel as the original useMemo-free literal array in the JSX file).
+// Icons come from lucide (data-lucide) instead of react-icons/Fa6 —
+// closest available equivalents are used (e.g. "flower-2" for the
+// meditation icon, since lucide has no dedicated meditation glyph).
+const orbitHabits = [
+  { icon: "droplet", color: "#0ea5e9", orbit: "outer", delay: 0 },
+  { icon: "footprints", color: "#ef4444", orbit: "outer", delay: -10 },
+  { icon: "book-open", color: "#6366f1", orbit: "outer", delay: -20 },
+  { icon: "flower-2", color: "#8b5cf6", orbit: "middle", delay: -4, reverse: true },
+  { icon: "dumbbell", color: "#f59e0b", orbit: "middle", delay: -16, reverse: true },
+  { icon: "pen-line", color: "#ec4899", orbit: "inner", delay: -2 },
+  { icon: "target", color: "#10b981", orbit: "inner", delay: -10 },
+];
+const orbits = {
+  outer: { inset: "0%", duration: 32, planet: 52 },
+  middle: { inset: "18%", duration: 24, planet: 46 },
+  inner: { inset: "36%", duration: 18, planet: 40 },
+};
+const stars = Array.from({ length: 14 }).map((_, i) => ({
+  top: Math.round(Math.random() * 95) + "%",
+  left: Math.round(Math.random() * 95) + "%",
+  size: 2 + Math.round(Math.random() * 3),
+  delay: -Math.random() * 3,
+}));
+%>
+<div class="orbiting-habits relative mx-auto w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[460px] lg:h-[460px]">
+  <% stars.forEach((s, i) => { %>
+    <span class="absolute rounded-full bg-amber-400/70 dark:bg-amber-200/70"
+      style="top: <%= s.top %>; left: <%= s.left %>; width: <%= s.size %>px; height: <%= s.size %>px; animation: twinkle <%= 2.5 + (i % 3) %>s ease-in-out <%= s.delay %>s infinite;"></span>
+  <% }) %>
+
+  <% Object.entries(orbits).forEach(([k, o]) => { %>
+    <div class="absolute rounded-full border border-dashed border-[var(--surface-border)] dark:border-white/10" style="inset: <%= o.inset %>;"></div>
+  <% }) %>
+
+  <div class="orbit-halo absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full" style="width: 34%; height: 34%; animation: pulse-ring 4.5s ease-in-out infinite;"></div>
+
+  <div class="orbit-sun absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[20%] h-[20%] rounded-full flex items-center justify-center backdrop-blur-xl">
+    <i data-lucide="sparkles" class="w-1/2 h-1/2" style="stroke-width: 1.5;"></i>
+  </div>
+
+  <% orbitHabits.forEach((h) => { const o = orbits[h.orbit]; %>
+    <div class="absolute rounded-full"
+      style="inset: <%= o.inset %>; animation: <%= h.reverse ? 'orbit-reverse' : 'orbit' %> <%= o.duration %>s linear <%= h.delay %>s infinite;">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl flex items-center justify-center backdrop-blur-md glass-strong"
+        style="width: <%= o.planet %>px; height: <%= o.planet %>px; background: <%= h.color %>33; border-color: <%= h.color %>55; box-shadow: 0 8px 28px <%= h.color %>55, 0 0 0 1px <%= h.color %>33; color: <%= h.color %>; animation: <%= h.reverse ? 'orbit' : 'orbit-reverse' %> <%= o.duration %>s linear <%= h.delay %>s infinite;">
+        <i data-lucide="<%= h.icon %>" style="width: <%= o.planet * 0.45 %>px; height: <%= o.planet * 0.45 %>px;"></i>
+      </div>
+    </div>
+  <% }) %>
+</div>

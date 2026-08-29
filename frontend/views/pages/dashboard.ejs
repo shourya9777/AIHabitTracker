@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../partials/head", { title: "Dashboard · AI Habit Tracker" }) %>
+</head>
+<body>
+  <%- include("../partials/sidebar") %>
+
+  <div class="md:pl-64">
+    <%- include("../partials/mobilenav") %>
+
+    <main class="max-w-5xl mx-auto px-4 md:px-8 py-6 md:py-8 pb-24 md:pb-8">
+      <div id="dashboard-loading" class="flex items-center justify-center min-h-[60vh]">
+        <div class="animate-spin rounded-full border-2 border-ink-200 border-t-brand-600" style="width:24px;height:24px;"></div>
+      </div>
+
+      <div id="dashboard-content" class="space-y-6 animate-fade-in hidden">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <h1 class="text-2xl md:text-3xl font-semibold tracking-tight" id="dashboard-greeting">Hey 👋</h1>
+            <p class="text-sm text-muted mt-0.5" id="dashboard-date"></p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="suggest-habit-btn" class="btn-secondary">
+              <i data-lucide="sparkles" class="w-[14px] h-[14px]"></i>
+              <span class="hidden sm:inline">Suggest a habit</span>
+            </button>
+            <button id="new-habit-btn" class="btn-primary">
+              <i data-lucide="plus" class="w-[14px] h-[14px]"></i>
+              New habit
+            </button>
+          </div>
+        </div>
+
+        <div id="morning-motivation" class="hidden"></div>
+        <div id="streak-recovery" class="hidden"></div>
+
+        <div id="summary-cards"></div>
+
+        <div class="card p-5">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <div class="text-sm font-medium">Today's habits</div>
+              <div class="text-xs text-muted" id="today-progress-label">0 of 0 complete</div>
+            </div>
+            <div class="relative" id="today-progress-ring">
+              <div class="absolute inset-0 flex items-center justify-center text-xs font-semibold" id="today-progress-pct">0%</div>
+            </div>
+          </div>
+
+          <div id="today-empty" class="text-center py-8 hidden">
+            <div class="text-5xl mb-3">🎯</div>
+            <div class="font-medium">Let's build your first habit</div>
+            <div class="text-sm text-muted mt-1">Start small — something you can do in under 5 minutes.</div>
+            <button id="today-empty-create-btn" class="btn-primary mt-4">
+              <i data-lucide="plus" class="w-[14px] h-[14px]"></i>
+              Create habit
+            </button>
+          </div>
+
+          <div id="today-habit-list" class="space-y-2"></div>
+        </div>
+
+        <div id="ai-weekly-report"></div>
+
+        <div class="grid lg:grid-cols-12 gap-5">
+          <div class="lg:col-span-8" id="weekly-grid"></div>
+          <div class="lg:col-span-4" id="heatmap-chart"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <%- include("../partials/habit-modal") %>
+  <%- include("../partials/suggestion-modal") %>
+
+  <%- include("../partials/scripts-app") %>
+  <script src="/js/progress-ring.js"></script>
+  <script src="/js/habit-form.js"></script>
+  <script src="/js/suggestion-modal.js"></script>
+  <script src="/js/habit-card.js"></script>
+  <script src="/js/weekly-grid.js"></script>
+  <script src="/js/heatmap.js"></script>
+  <script src="/js/summary-cards.js"></script>
+  <script src="/js/morning-motivation.js"></script>
+  <script src="/js/streak-recovery.js"></script>
+  <script src="/js/ai-weekly-report.js"></script>
+  <script src="/js/pages/dashboard.js"></script>
+</body>
+</html>

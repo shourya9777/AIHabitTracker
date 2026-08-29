@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../partials/head", { title: "Weekly overview · AI Habit Tracker" }) %>
+</head>
+<body>
+  <%- include("../partials/sidebar") %>
+
+  <div class="md:pl-64">
+    <%- include("../partials/mobilenav") %>
+
+    <main class="max-w-5xl mx-auto px-4 md:px-8 py-6 md:py-8 pb-24 md:pb-8">
+      <div class="space-y-6 animate-fade-in">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h1 class="text-2xl md:text-3xl font-semibold tracking-tight">Weekly overview</h1>
+            <p class="text-sm text-muted mt-0.5">See every habit across all 7 days at a glance.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="weekly-prev-btn" class="btn-secondary px-3" aria-label="Previous week">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <div class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl glass text-sm font-medium">
+              <i data-lucide="calendar-days" class="w-[14px] h-[14px] text-muted"></i>
+              <span id="weekly-range-label">—</span>
+            </div>
+            <button id="weekly-next-btn" class="btn-secondary px-3" aria-label="Next week">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+            <button id="weekly-today-btn" class="btn-ghost hidden">Today</button>
+          </div>
+        </div>
+
+        <div id="weekly-loading" class="flex items-center justify-center min-h-[40vh]">
+          <div class="animate-spin rounded-full border-2 border-ink-200 border-t-brand-600" style="width:24px;height:24px;"></div>
+        </div>
+
+        <div id="weekly-body" class="space-y-6 hidden">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="card p-4">
+              <div class="text-xs text-muted font-medium">Week rate</div>
+              <div class="text-2xl font-semibold mt-1" id="weekly-rate">0%</div>
+              <div class="text-xs text-muted mt-0.5" id="weekly-rate-sub">0 of 0</div>
+            </div>
+            <div class="card p-4">
+              <div class="text-xs text-muted font-medium">Total completions</div>
+              <div class="text-2xl font-semibold mt-1" id="weekly-total-done">0</div>
+              <div class="text-xs text-muted mt-0.5">this week</div>
+            </div>
+            <div class="card p-4">
+              <div class="text-xs text-muted font-medium">Best day</div>
+              <div class="text-2xl font-semibold mt-1" id="weekly-best-day">—</div>
+              <div class="text-xs text-muted mt-0.5" id="weekly-best-day-sub">no data</div>
+            </div>
+            <div class="card p-4">
+              <div class="text-xs text-muted font-medium">Top habit</div>
+              <div class="text-2xl font-semibold mt-1 truncate" id="weekly-top-habit">—</div>
+              <div class="text-xs text-muted mt-0.5" id="weekly-top-habit-sub">no data</div>
+            </div>
+          </div>
+
+          <div id="weekly-empty" class="card p-10 text-center hidden">
+            <div class="text-5xl mb-3">📅</div>
+            <div class="font-medium">No habits yet</div>
+            <div class="text-sm text-muted mt-1">Create a habit to start filling in your weekly grid.</div>
+          </div>
+
+          <div id="weekly-grid"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <%- include("../partials/scripts-app") %>
+  <script src="/js/weekly-grid.js"></script>
+  <script src="/js/pages/weekly.js"></script>
+</body>
+</html>

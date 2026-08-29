@@ -1,0 +1,41 @@
+<div class="md:hidden sticky top-0 z-20 glass border-b divider px-4 py-3 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 text-white flex items-center justify-center shadow-md shadow-brand-500/30">
+      <i data-lucide="sparkles" class="w-4 h-4"></i>
+    </div>
+    <div class="font-semibold">AI Habit Tracker</div>
+  </div>
+  <div class="flex items-center gap-2">
+    <button data-theme-toggle class="p-2 rounded-lg text-soft hover:bg-[var(--surface-hover)]" aria-label="Toggle theme">
+      <i data-theme-icon data-lucide="moon" class="w-4 h-4"></i>
+    </button>
+    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-white text-sm font-semibold flex items-center justify-center">
+      <span data-user-avatar>U</span>
+    </div>
+    <button id="mobile-logout-btn" class="p-2 rounded-lg text-soft hover:bg-[var(--surface-hover)]">
+      <i data-lucide="log-out" class="w-4 h-4"></i>
+    </button>
+  </div>
+</div>
+
+<nav class="md:hidden fixed bottom-0 inset-x-0 z-30 glass border-t divider flex justify-around py-2">
+  <a href="/dashboard" data-nav-link="/dashboard" class="flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-lg text-xs text-faint">
+    <i data-lucide="layout-dashboard" class="w-[18px] h-[18px]"></i> Home
+  </a>
+  <a href="/habits" data-nav-link="/habits" class="flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-lg text-xs text-faint">
+    <i data-lucide="list-checks" class="w-[18px] h-[18px]"></i> Habits
+  </a>
+  <a href="/weekly" data-nav-link="/weekly" class="flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-lg text-xs text-faint">
+    <i data-lucide="calendar-days" class="w-[18px] h-[18px]"></i> Weekly
+  </a>
+  <a href="/insights" data-nav-link="/insights" class="flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-lg text-xs text-faint">
+    <i data-lucide="brain" class="w-[18px] h-[18px]"></i> Insights
+  </a>
+  <a href="/stats" data-nav-link="/stats" class="flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-lg text-xs text-faint">
+    <i data-lucide="bar-chart-3" class="w-[18px] h-[18px]"></i> Stats
+  </a>
+</nav>
+
+<script>
+  document.getElementById("mobile-logout-btn").addEventListener("click", () => window.AuthGuard.logout());
+</script>

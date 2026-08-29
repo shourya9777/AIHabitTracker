@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../partials/head", { title: "Log in · AI Habit Tracker" }) %>
+</head>
+<body>
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <button data-theme-toggle class="fixed top-4 right-4 p-2.5 rounded-xl glass" aria-label="Toggle theme">
+      <i data-theme-icon data-lucide="moon" class="w-4 h-4"></i>
+    </button>
+
+    <div class="w-full max-w-md">
+      <a href="/" class="flex items-center justify-center gap-2 mb-6">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white flex items-center justify-center shadow-lg shadow-brand-500/30">
+          <i data-lucide="sparkles" class="w-[18px] h-[18px]"></i>
+        </div>
+        <span class="font-semibold text-lg">AI Habit Tracker</span>
+      </a>
+
+      <div class="card p-7">
+        <h1 class="text-2xl font-semibold">Welcome back</h1>
+        <p class="text-sm text-muted mt-1">Log in to continue your streaks.</p>
+
+        <form id="login-form" class="mt-6 space-y-4">
+          <div>
+            <label class="label">Email</label>
+            <input id="login-email" class="input" type="email" placeholder="you@example.com" required autofocus />
+          </div>
+          <div>
+            <label class="label">Password</label>
+            <input id="login-password" class="input" type="password" placeholder="••••••••" required />
+          </div>
+          <div id="login-error" class="hidden text-sm text-rose-500 bg-rose-500/10 border border-rose-500/20 rounded-lg px-3 py-2"></div>
+          <button id="login-submit" type="submit" class="btn-primary w-full py-3">Sign in</button>
+        </form>
+
+        <div class="text-center mt-5 text-sm text-soft">
+          Don't have an account?
+          <a href="/register" class="text-brand-600 dark:text-brand-300 font-medium">Create one</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include("../partials/scripts-guest") %>
+  <script src="/js/pages/login.js"></script>
+</body>
+</html>
