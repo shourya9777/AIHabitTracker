@@ -61,10 +61,16 @@ export const suggestHabits = async (req, res) => {
     try {
         const {goals, productiveTime, struggles} = req.body;
         const userMsg = `User goals: ${goals || "not provided"}\nMost productive time: ${productiveTime || "not provided"}\nPast struggles: ${struggles || "not provided"}\n\nSuggest 3 personalized habits now. Return JSON only.`;
-        const {content} = await chatCompletion({
-            system: SYSTEM_PROMPTS.suggestion,
-            user: userMsg,
-        });
+        const { ok, content } = await chatCompletion({
+    system: SYSTEM_PROMPTS.suggestion,
+    user: userMsg,
+});
+
+if (!ok) {
+    return res.status(500).json({
+        message: "AI suggestion request failed. Please check the Gemini API configuration."
+    });
+}
 
         let suggestions= [];
         try{
